@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: flowcreate
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d flowcreate"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/flowcreate?schema=public
+      AUTH_SECRET: change_me_to_a_long_random_secret
+      AUTH_URL: https://flowcreate.ru
+      AUTH_GOOGLE_ID: replace_me
+      AUTH_GOOGLE_SECRET: replace_me
+      ADMIN_EMAIL: admin@example.com
+      VK_ACCESS_TOKEN: vk1.a.tpN5zPuWg6De-UMkXWV_YG04Jj41LuEf2VV22ykv1Et7smcOuuUX7PiBfc7yTefi6_EBBmS311d12zTwUZXrdUaI02onXP_5KphxHEFWitoYFFDAhGZXMy2KNk2oLQ3jMnYv1jkf2bUxeEqzcPQNz0yw_nLG6ADwFdm3s05O8xLJWva-vpe1ZqMyDTjbgM5At7-0e5D8nZ8Btny9byiO-w
+      VK_GROUP_ID: "238613145"
+      VK_API_VERSION: "5.199"
+      VK_CALLBACK_URL: https://flowcreate.ru/callback/xE4sA
+      VK_CALLBACK_SECRET: ahs2391lsda3
+      VK_CALLBACK_CONFIRMATION: 3521fb4e
+      VK_BOT_SECRET: ahs2391lsda3
+
+volumes:
+  postgres_data:

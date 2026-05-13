@@ -1,7 +1,7 @@
 ﻿import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
-import { works } from "@/lib/mock-data";
+import { listProducts } from "@/lib/products";
 
 const hero = [
   "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&h=520&fit=crop",
@@ -14,7 +14,9 @@ const hero = [
   "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600&h=520&fit=crop",
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const products = await listProducts();
+
   return (
     <>
       <section className="bg-black py-4 text-white">
@@ -69,7 +71,7 @@ export default function HomePage() {
           <Link href="/works" className="text-sm font-semibold uppercase tracking-wide text-[#1f3342]">Все работы</Link>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {works.slice(0, 4).map((product) => (
+          {products.slice(0, 4).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

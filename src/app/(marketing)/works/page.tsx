@@ -1,18 +1,20 @@
 ﻿import { ProductCard } from "@/components/product-card";
-import { works } from "@/lib/mock-data";
+import { listProducts } from "@/lib/products";
 
-export default function WorksPage() {
+export default async function WorksPage() {
+  const products = await listProducts();
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <div className="text-sm text-charcoal/60">Главная / Общий / Работы</div>
       <h1 className="mt-3 text-4xl font-black uppercase">Работы</h1>
       <div className="mt-6 grid gap-3 rounded border border-black/10 bg-white p-4 text-sm text-charcoal/70 md:grid-cols-[auto_1fr_auto] md:items-center">
         <button className="w-fit border border-black/20 px-3 py-2">Фильтр</button>
-        <span>Показаны 1-16 из 32 результатов</span>
+        <span>Показаны 1-{products.length} из {products.length} результатов</span>
         <span>По умолчанию</span>
       </div>
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {works.map((product) => (
+        {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
