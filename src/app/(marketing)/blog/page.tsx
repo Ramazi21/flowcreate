@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { blogPosts, recentPosts } from "@/lib/mock-data";
 
@@ -46,14 +46,19 @@ export default function BlogPage() {
         <div>
           <h3 className="text-3xl font-black">Последние сообщения</h3>
           <ul className="mt-4 space-y-4">
-            {recentPosts.map((title, idx) => (
-              <li key={title} className="flex gap-3">
-                <div className="relative h-14 w-14 shrink-0 overflow-hidden">
-                  <Image src={blogPosts[idx % blogPosts.length].imageUrl} alt={title} fill className="object-cover" sizes="56px" />
-                </div>
-                <p className="text-sm text-charcoal/80">{title}</p>
-              </li>
-            ))}
+            {recentPosts.map((title, idx) => {
+              const thumb = blogPosts.length ? blogPosts[idx % blogPosts.length] : undefined;
+              return (
+                <li key={title} className="flex gap-3">
+                  <div className="relative h-14 w-14 shrink-0 overflow-hidden bg-sand">
+                    {thumb ? (
+                      <Image src={thumb.imageUrl} alt="" fill className="object-cover" sizes="56px" />
+                    ) : null}
+                  </div>
+                  <p className="text-sm text-charcoal/80">{title}</p>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </aside>

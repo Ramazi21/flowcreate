@@ -1,8 +1,10 @@
 ﻿import Image from "next/image";
 import { ProductCard } from "@/components/product-card";
-import { works } from "@/lib/mock-data";
+import { listProducts } from "@/lib/products";
 
-export default function AuthorPage() {
+export default async function AuthorPage() {
+  const products = await listProducts();
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <section className="grid gap-8 md:grid-cols-[220px_1fr] md:items-start">
@@ -28,7 +30,7 @@ export default function AuthorPage() {
       <section className="mt-12">
         <h3 className="text-3xl font-black">Работы автора</h3>
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {works.slice(4, 8).map((product) => (
+          {products.slice(0, 4).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

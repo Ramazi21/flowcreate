@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Noto_Sans } from "next/font/google";
+import { AuthSessionProvider } from "@/components/auth-session-provider";
 import "./globals.css";
 
 const serif = Cormorant_Garamond({
@@ -29,7 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={`${serif.variable} ${sans.variable}`}>
-      <body className="font-sans min-h-screen bg-cream text-charcoal antialiased">{children}</body>
+      <body className="font-sans min-h-screen bg-cream text-charcoal antialiased">
+        <AuthSessionProvider>{children}</AuthSessionProvider>
+      </body>
     </html>
   );
 }
