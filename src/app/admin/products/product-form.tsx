@@ -93,7 +93,7 @@ export function ProductForm() {
       return;
     }
 
-    setForm((current) => ({ ...current, imageUrl: data.url! }));
+    setForm((current) => ({ ...current, imageUrl: data.url }));
     setStatus("success");
     setMessage("Изображение загружено");
   }
@@ -137,7 +137,7 @@ export function ProductForm() {
     }
 
     setProducts((current) =>
-      current.map((item) => (item.id === editingProduct.id ? { ...item, imageUrl: data.url! } : item)),
+      current.map((item) => (item.id === editingProduct.id ? { ...item, imageUrl: data.url } : item)),
     );
     setStatus("success");
     setMessage("Изображение загружено");
@@ -438,7 +438,9 @@ export function ProductForm() {
               }}
               className="mt-2 w-full text-sm"
             />
-            <p className="mt-1 text-xs text-charcoal/60">Форматы: JPEG, PNG, WebP. До 8 МБ.</p>
+            <p className="mt-1 text-xs text-charcoal/60">
+              Форматы: JPEG, PNG, WebP. До 8 МБ. После загрузки путь подставится автоматически.
+            </p>
             {uploadingImage ? <p className="mt-1 text-xs text-charcoal/80">Загрузка...</p> : null}
           </div>
           <input
