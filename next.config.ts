@@ -1,14 +1,14 @@
 const nextConfig = {
-    typescript: {
-        // !! ВНИМАНИЕ !!
-        // Это позволит билду завершиться успешно, даже если есть ошибки типов
-        ignoreBuildErrors: true,
-    },
-    eslint: {
-        // Игнорируем ошибки линтера при сборке
-        ignoreDuringBuilds: true,
-    },
-    // Твои остальные настройки...
+  // 1. ВКЛЮЧАЕМ РЕЖИМ STANDALONE (обязательно для твоего Dockerfile!)
+  output: 'standalone',
+  
+  // 2. ИГНОРИРУЕМ ОШИБКИ ТИПОВ (чтобы билд не падал из-за мелочей)
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
