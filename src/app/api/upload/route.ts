@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import { extensionForKind, sniffImageKind } from "@/lib/upload-image";
 
 /** Максимальный размер одного файла (совпадает с подсказкой в админке). */
-export const maxSizeBytes = 8 * 1024 * 1024;
+const maxSizeBytes = 8 * 1024 * 1024;
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

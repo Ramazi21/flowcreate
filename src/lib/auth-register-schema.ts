@@ -24,4 +24,9 @@ export const registerBodySchema = z
     path: ["passwordConfirm"],
   });
 
+export const vkSendCodeBodySchema = z.object({
+  login: loginFieldSchema,
+});
+
 export type RegisterBody = z.infer<typeof registerBodySchema>;
+export type VkSendCodeBody = z.infer<typeof vkSendCodeBodySchema>;
