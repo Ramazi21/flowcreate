@@ -14,7 +14,7 @@ export default function BlogPage() {
             <div className="mt-3 text-xs text-charcoal/60">4 апреля · 14 августа 2022 · {post.category}</div>
             <h2 className="mt-2 text-4xl font-black leading-tight">{post.title}</h2>
             <p className="mt-3 text-sm text-charcoal/70">{post.excerpt}</p>
-            <Link href="/blog" className="mt-4 inline-block border-b border-charcoal text-sm font-semibold text-charcoal hover:text-[#1f3342]">
+            <Link href={`/blog/${post.id}`} className="mt-4 inline-block border-b border-charcoal text-sm font-semibold text-charcoal hover:text-[#1f3342]">
               Читать далее
             </Link>
           </article>

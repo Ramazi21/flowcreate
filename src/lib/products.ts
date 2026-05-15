@@ -15,6 +15,8 @@ export type ProductView = {
   category: string;
   stock: number;
   status: ProductStatus;
+  authorId?: string;
+  description?: string;
 };
 
 function formatPrice(price: number) {
@@ -28,6 +30,14 @@ function priceStringToRub(display: string): number {
   return parseInt(digits, 10);
 }
 
+function getCategory(name: string): string {
+  const n = name.toLowerCase();
+  if (n.includes("картина") || n.includes("панно") || n.includes("скульптура") || n.includes("ваза")) return "decor";
+  if (n.includes("лампа") || n.includes("ночник")) return "lighting";
+  if (n.includes("стул") || n.includes("стол")) return "furniture";
+  return "other";
+}
+
 export async function listProducts(): Promise<ProductView[]> {
   try {
     const products = await db.product.findMany({
@@ -35,7 +45,7 @@ export async function listProducts(): Promise<ProductView[]> {
       orderBy: { createdAt: "desc" },
     });
 
-    if (!products.length) return [];
+    if (!products.length) throw new Error("No products in DB");
 
     return products.map((item) => ({
       id: item.id,
@@ -58,9 +68,16 @@ export async function listProducts(): Promise<ProductView[]> {
       priceRub: priceStringToRub(item.price),
       imageUrl: item.imageUrl,
       slug: item.id,
-      category: "decor",
+      category: getCategory(item.name + " " + item.subtitle),
       stock: 10,
       status: ProductStatus.APPROVED,
+      authorId: item.authorId,
+      description: item.description,
     }));
   }
+}
+
+export async function getProduct(id: string): Promise<ProductView | null> {
+  const products = await listProducts();
+  return products.find((p) => p.id === id) || null;
 }

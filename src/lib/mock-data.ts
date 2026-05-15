@@ -1,11 +1,53 @@
-﻿export type Work = {
+export type Work = {
   id: string;
   name: string;
   subtitle: string;
   price: string;
   oldPrice?: string;
   imageUrl: string;
+  authorId?: string;
+  description?: string;
 };
+
+export type Author = {
+  id: string;
+  name: string;
+  role: string;
+  avatarUrl: string;
+  bio: string;
+  location: string;
+  followers: number;
+};
+
+export const authors: Author[] = [
+  {
+    id: "a1",
+    name: "Виктор Альварадо",
+    role: "Художник-сюрреалист",
+    avatarUrl: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=700&fit=crop",
+    bio: "Художник-сюрреалист, скульптор и преподаватель. Создаю картины и скульптуры в стиле сюрреализма, помогаю ученикам строить композицию и воплощать идеи в материале.",
+    location: "Россия",
+    followers: 520,
+  },
+  {
+    id: "a2",
+    name: "Анна Левина",
+    role: "Керамист",
+    avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=700&fit=crop",
+    bio: "Мастер по керамике с 5-летним стажем. Специализируюсь на создании уникальной посуды и предметов декора для дома.",
+    location: "Россия",
+    followers: 340,
+  },
+  {
+    id: "a3",
+    name: "Игорь Степанов",
+    role: "Мастер по дереву",
+    avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&h=700&fit=crop",
+    bio: "Работаю с натуральным деревом, создавая мебель и аксессуары, которые подчеркивают природную красоту материала.",
+    location: "Россия",
+    followers: 890,
+  },
+];
 
 export type BlogPost = {
   id: string;
@@ -13,17 +55,88 @@ export type BlogPost = {
   category: string;
   imageUrl: string;
   excerpt: string;
+  content?: string;
+};
+
+export type Course = {
+  id: string;
+  title: string;
+  priceRub: number;
+  imageUrl: string;
+  description: string;
+  author: {
+    name: string;
+    bio: string;
+    avatarUrl?: string;
+  };
+  details: {
+    duration: string;
+    level: string;
+    lessonsCount: number;
+  };
+  program: {
+    title: string;
+    content: string;
+  }[];
 };
 
 export const works: Work[] = [
-  { id: "w1", name: "Сильтерин", subtitle: "Стильная картина", price: "25.000 ₽", oldPrice: "35.000 ₽", imageUrl: "https://images.unsplash.com/photo-1513519245088-0e12902e5a01?w=900&h=900&fit=crop" },
-  { id: "w2", name: "Левиоса", subtitle: "Стильная картина", price: "25.000 ₽", imageUrl: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?w=900&h=900&fit=crop" },
-  { id: "w3", name: "Скандинавская", subtitle: "Роскошное большое панно", price: "7.000 ₽", oldPrice: "14.000 ₽", imageUrl: "https://images.unsplash.com/photo-1583845112203-45474ef5f4d6?w=900&h=900&fit=crop" },
-  { id: "w4", name: "Респира", subtitle: "Скульптура", price: "50.000 ₽", imageUrl: "https://images.unsplash.com/photo-1611059116075-15b7fdbf1e00?w=900&h=900&fit=crop" },
-  { id: "w5", name: "Грифо", subtitle: "Ночник", price: "1.800 ₽", imageUrl: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=900&h=900&fit=crop" },
-  { id: "w6", name: "Магго", subtitle: "Маленькая кружка", price: "900 ₽", imageUrl: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&h=900&fit=crop" },
-  { id: "w7", name: "Пинки", subtitle: "Картина", price: "7.000 ₽", oldPrice: "14.000 ₽", imageUrl: "https://images.unsplash.com/photo-1577083553180-74814f0c77b4?w=900&h=900&fit=crop" },
-  { id: "w8", name: "Горшок", subtitle: "Цветочный горшок", price: "500 ₽", imageUrl: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=900&h=900&fit=crop" },
+  { 
+    id: "w1", 
+    name: "Сильтерин", 
+    subtitle: "Стильная картина", 
+    price: "25.000 ₽", 
+    oldPrice: "35.000 ₽", 
+    imageUrl: "https://images.unsplash.com/photo-1513519245088-0e12902e5a01?w=900&h=900&fit=crop",
+    authorId: "a1",
+    description: "Эта картина в стиле сюрреализма приглашает зрителя в мир грез и подсознания. Идеально подходит для современного интерьера."
+  },
+  { 
+    id: "w2", 
+    name: "Левиоса", 
+    subtitle: "Стильная картина", 
+    price: "25.000 ₽", 
+    imageUrl: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?w=900&h=900&fit=crop",
+    authorId: "a1",
+    description: "Работа, вдохновленная легкостью и движением. Сочетание теплых оттенков создает атмосферу уюта."
+  },
+  { 
+    id: "w3", 
+    name: "Скандинавская", 
+    subtitle: "Роскошное большое панно", 
+    price: "7.000 ₽", 
+    oldPrice: "14.000 ₽", 
+    imageUrl: "https://images.unsplash.com/photo-1583845112203-45474ef5f4d6?w=900&h=900&fit=crop",
+    authorId: "a3",
+    description: "Минималистичное панно из натуральных материалов в скандинавском стиле."
+  },
+  { 
+    id: "w4", 
+    name: "Респира", 
+    subtitle: "Скульптура", 
+    price: "50.000 ₽", 
+    imageUrl: "https://images.unsplash.com/photo-1611059116075-15b7fdbf1e00?w=900&h=900&fit=crop",
+    authorId: "a1",
+    description: "Скульптура, символизирующая дыхание и жизнь. Выполнена из высококачественных материалов."
+  },
+  { 
+    id: "w10", 
+    name: "Керамическая ваза", 
+    subtitle: "Ваза ручной работы", 
+    price: "3.200 ₽", 
+    imageUrl: "https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=900&h=900&fit=crop",
+    authorId: "a2",
+    description: "Каждая ваза уникальна и хранит тепло рук мастера. Прекрасное дополнение к любому букету."
+  },
+  { 
+    id: "w11", 
+    name: "Деревянный стул", 
+    subtitle: "Стул из массива дуба", 
+    price: "15.000 ₽", 
+    imageUrl: "https://images.unsplash.com/photo-1503602642458-232111445657?w=900&h=900&fit=crop",
+    authorId: "a3",
+    description: "Надежный и стильный стул, который прослужит десятилетия."
+  },
 ];
 
 export const blogPosts: BlogPost[] = [
@@ -33,6 +146,7 @@ export const blogPosts: BlogPost[] = [
     category: "Древесина",
     imageUrl: "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?w=1200&h=700&fit=crop",
     excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    content: "Миллениальный дизайн — это не просто тренд, это отражение целого поколения. В этой статье мы рассмотрим, как использование натуральной древесины помогает создать уют и комфорт в современном интерьере. Мы поговорим о выборе материалов, сочетании текстур и о том, как сделать ваш дом по-настоящему уникальным.\n\nНатуральное дерево всегда было символом стабильности и связи с природой. В эпоху цифровых технологий нам всё больше не хватает тактильных ощущений, и именно дерево дает нам ту самую теплоту. Использование древесины в отделке стен, пола или в качестве мебели позволяет создать пространство, в котором хочется находиться долго.\n\nКлючевым моментом является правильное сочетание различных пород дерева. Не бойтесь экспериментировать: светлый дуб отлично смотрится рядом с темным орехом, создавая интересный контраст.",
   },
   {
     id: "b2",
@@ -40,6 +154,7 @@ export const blogPosts: BlogPost[] = [
     category: "Ручной работы",
     imageUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=700&fit=crop",
     excerpt: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    content: "Декорирование — это искусство превращать обычные вещи в произведения искусства. Сегодня мы изучим современные техники ручной работы, которые доступны каждому. От макраме до гончарного дела — мир декора огромен и разнообразен.\n\nПервый шаг к успешному декорированию — это понимание пространства. Важно не перегрузить интерьер деталями, а расставить акценты. Предметы ручной работы несут в себе душу мастера, поэтому они так ценятся в современном дизайне.\n\nПопробуйте начать с малого: сделайте своими руками подсвечник или свяжите небольшое панно. Это не только украсит ваш дом, но и принесет огромное удовольствие от процесса творчества.",
   },
   {
     id: "b3",
@@ -47,6 +162,73 @@ export const blogPosts: BlogPost[] = [
     category: "Древесина",
     imageUrl: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&h=700&fit=crop",
     excerpt: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    content: "В мире масс-маркета мы часто забываем о ценности времени. Настоящие шедевры создаются не за минуты, а за дни и недели кропотливого труда. В этой статье мы расскажем о мастерах, которые посвятили свою жизнь работе с деревом и созданию уникальных изделий.\n\nКаждая трещинка на дереве, каждый изгиб — это история. Мастер не просто обрабатывает материал, он слушает его. Именно поэтому изделия ручной работы стоят дороже — в них вложено не только время, но и часть жизни человека.\n\nМы посетили несколько мастерских и увидели процесс рождения стола из цельного спила дерева. Это завораживающее зрелище, требующее огромного терпения и мастерства.",
+  },
+];
+
+export const courses: Course[] = [
+  {
+    id: "c1",
+    title: "Психология цвета в интерьере",
+    priceRub: 4500,
+    imageUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900&h=700&fit=crop",
+    description: "Узнайте, как цвета влияют на настроение и восприятие пространства. Мы разберем теорию цвета и научимся создавать гармоничные палитры для дома.",
+    author: {
+      name: "Елена Вернер",
+      bio: "Дизайнер интерьеров с 10-летним стажем, эксперт по колористике.",
+    },
+    details: {
+      duration: "4 недели",
+      level: "Для начинающих",
+      lessonsCount: 12,
+    },
+    program: [
+      { title: "Введение в теорию цвета", content: "Основы цветового круга и восприятия." },
+      { title: "Психология основных оттенков", content: "Как красный, синий и зеленый меняют наше состояние." },
+      { title: "Создание мудборда", content: "Практическое занятие по подбору материалов." },
+    ],
+  },
+  {
+    id: "c2",
+    title: "Профессиональный курс по декору",
+    priceRub: 8900,
+    imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=900&h=700&fit=crop",
+    description: "Углубленное изучение техник декорирования для тех, кто хочет сделать дизайн своей профессией.",
+    author: {
+      name: "Марк Робинсон",
+      bio: "Основатель студии Flow, автор множества арт-инсталляций.",
+    },
+    details: {
+      duration: "8 недель",
+      level: "Продвинутый",
+      lessonsCount: 24,
+    },
+    program: [
+      { title: "Работа с пространством", content: "Масштабирование и композиция в декоре." },
+      { title: "Свет как элемент дизайна", content: "Типы освещения и их влияние на декор." },
+      { title: "Текстиль и фактуры", content: "Как правильно сочетать ткани и поверхности." },
+    ],
+  },
+  {
+    id: "c3",
+    title: "Мастерство работы с деревом",
+    priceRub: 12000,
+    imageUrl: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=900&h=700&fit=crop",
+    description: "Практический курс по изготовлению предметов интерьера из натурального дерева своими руками.",
+    author: {
+      name: "Александр Волков",
+      bio: "Мастер-краснодеревщик, создатель уникальной мебели из массива.",
+    },
+    details: {
+      duration: "6 недель",
+      level: "Средний",
+      lessonsCount: 18,
+    },
+    program: [
+      { title: "Выбор и подготовка древесины", content: "Виды дерева, сушка и хранение." },
+      { title: "Инструменты мастера", content: "Обзор ручного и электроинструмента." },
+      { title: "Создание первого изделия", content: "Пошаговое изготовление кофейного столика." },
+    ],
   },
 ];
 

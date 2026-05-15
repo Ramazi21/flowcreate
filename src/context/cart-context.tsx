@@ -85,6 +85,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setLines((current) => {
       const existing = current.find((line) => line.id === input.id);
       if (existing) {
+        // Если это курс (maxStock === 1), не даем добавить больше одного
+        if (input.maxStock === 1) {
+          return current;
+        }
         const nextQty = Math.min(existing.maxStock, existing.quantity + qty);
         return current.map((line) =>
           line.id === input.id ? { ...line, quantity: nextQty } : line,
