@@ -22,7 +22,7 @@ export default async function AuthorDetailPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <section className="grid gap-8 md:grid-cols-[220px_1fr] md:items-start">
-        <div className="relative h-52 w-52 overflow-hidden rounded-md border border-black/10 shadow-sm">
+        <div className="relative h-52 w-52 mx-auto md:mx-0 overflow-hidden rounded-md border border-black/10 shadow-sm">
           <Image
             src={author.avatarUrl}
             alt={author.name}
@@ -31,9 +31,9 @@ export default async function AuthorDetailPage({ params }: Props) {
             sizes="220px"
           />
         </div>
-        <div>
-          <div className="flex flex-wrap items-baseline gap-4">
-            <h1 className="text-5xl font-black text-charcoal">{author.name}</h1>
+        <div className="text-center md:text-left">
+          <div className="flex flex-wrap items-baseline justify-center md:justify-start gap-4">
+            <h1 className="text-4xl md:text-5xl font-black text-charcoal">{author.name}</h1>
             <span className="text-xl text-charcoal/40 font-medium">@{author.id}</span>
           </div>
           <p className="mt-2 text-xl text-charcoal/70">{author.role}</p>
@@ -41,7 +41,7 @@ export default async function AuthorDetailPage({ params }: Props) {
             {author.location} · {author.followers.toLocaleString()} подписчиков
           </p>
           
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex justify-center md:justify-start gap-3">
             <button className="rounded-md bg-charcoal px-6 py-2.5 text-sm font-bold text-white uppercase tracking-wider hover:bg-charcoal/90 transition">
               Сообщение
             </button>
@@ -52,7 +52,7 @@ export default async function AuthorDetailPage({ params }: Props) {
 
           <div className="mt-10">
             <h2 className="text-xl font-black uppercase tracking-widest text-charcoal/40">Обо мне</h2>
-            <p className="mt-4 text-lg leading-relaxed text-charcoal/80 max-w-2xl">
+            <p className="mt-4 text-lg leading-relaxed text-charcoal/80 max-w-2xl mx-auto md:mx-0">
               {author.bio}
             </p>
           </div>

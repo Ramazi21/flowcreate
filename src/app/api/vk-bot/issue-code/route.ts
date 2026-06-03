@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
-import { generateVkAccessCode } from "@/lib/auth-password";
+import { generateVkAccessCode } from "@/lib/vk-utils";
 import { verifyVkBotSecret } from "@/lib/vk-bot-secret";
 
 const MAX_TTL_MIN = 60 * 24 * 7;

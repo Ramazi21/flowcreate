@@ -1,15 +1,13 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import { listProducts } from "@/lib/products";
 
 const hero = [
   "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&h=520&fit=crop",
-  "https://images.unsplash.com/photo-1611059116075-15b7fdbf1e00?w=600&h=520&fit=crop",
   "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&h=520&fit=crop",
   "https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=600&h=520&fit=crop",
   "https://images.unsplash.com/photo-1468436385273-8abca6dfd8d3?w=600&h=520&fit=crop",
-  "https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=600&h=520&fit=crop",
   "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?w=600&h=520&fit=crop",
   "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600&h=520&fit=crop",
 ];
@@ -34,18 +32,18 @@ export default async function HomePage() {
       </section>
 
       <section className="bg-[#728DA1] py-12">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-          <div>
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 grid-cols-1 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <div className="text-center lg:text-left">
             <h2 className="text-4xl font-black leading-tight text-charcoal md:text-6xl">50+ уроков для вдохновения</h2>
             <p className="mt-4 text-lg font-semibold text-charcoal/80">Авторы уже создали много интересных курсов</p>
             <Link href="/courses" className="mt-7 inline-block bg-[#3d5368] px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white">
               Узнайте больше
             </Link>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             <article className="relative aspect-[4/3] overflow-hidden bg-white">
-              <Image src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900&h=700&fit=crop" alt="Как цвета влияют на человека" fill className="object-cover" sizes="50vw" />
-              <div className="absolute bottom-4 left-4 bg-white/95 px-4 py-3 text-3xl font-black leading-tight text-charcoal">
+              <Image src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900&h=700&fit=crop" alt="Как цвета влияют на человека" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+              <div className="absolute bottom-4 left-4 bg-white/95 px-4 py-3 text-2xl sm:text-3xl font-black leading-tight text-charcoal">
                 Как цвета
                 <br />
                 влияют на
@@ -54,8 +52,8 @@ export default async function HomePage() {
               </div>
             </article>
             <article className="relative aspect-[4/3] overflow-hidden bg-white">
-              <Image src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=900&h=700&fit=crop" alt="Дизайнерский курс" fill className="object-cover" sizes="50vw" />
-              <div className="absolute bottom-4 left-4 right-4 bg-[#2c3e97]/90 px-4 py-3 text-xl font-black text-white">
+              <Image src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=900&h=700&fit=crop" alt="Дизайнерский курс" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+              <div className="absolute bottom-4 left-4 right-4 bg-[#2c3e97]/90 px-4 py-3 text-lg sm:text-xl font-black text-white">
                 ДИЗАЙНЕРСКИЙ КУРС
                 <br />
                 ДЛЯ ОПЫТНЫХ ПОЛЬЗОВАТЕЛЕЙ

@@ -3,18 +3,11 @@ import { ProductStatus } from "@prisma/client";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 
-const imageUrlSchema = z
-  .string()
-  .min(2)
-  .refine((value) => value.startsWith("/uploads/") || z.string().url().safeParse(value).success, {
-    message: "Image URL must be absolute URL or /uploads path",
-  });
-
 const updateProductSchema = z.object({
   title: z.string().min(2).optional(),
   slug: z.string().min(2).optional(),
   price: z.coerce.number().int().nonnegative().optional(),
-  imageUrl: imageUrlSchema.optional(),
+  imageUrl: z.string().min(2).optional(),
   description: z.string().min(2).optional(),
   stock: z.coerce.number().int().nonnegative().optional(),
   category: z.string().min(2).optional(),

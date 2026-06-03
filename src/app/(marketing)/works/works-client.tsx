@@ -3,14 +3,18 @@
 import { useState, useMemo } from "react";
 import { ProductCard } from "@/components/product-card";
 import type { ProductView } from "@/lib/products";
+import { ProductType } from "@prisma/client";
 
 const ITEMS_PER_PAGE = 8;
 
 const CATEGORIES = [
-  { id: "all", name: "Все работы" },
-  { id: "decor", name: "Декор" },
-  { id: "furniture", name: "Мебель" },
-  { id: "lighting", name: "Освещение" },
+  { id: "all", name: "Все работы", type: null },
+  { id: "risunki", name: "Рисунки", type: "WORK", category: "risunki" },
+  { id: "decor", name: "Декор", type: "WORK", category: "decor" },
+  { id: "furniture", name: "Мебель", type: "WORK", category: "furniture" },
+  { id: "lighting", name: "Освещение", type: "WORK", category: "lighting" },
+  { id: "other", name: "Другое", type: "WORK", category: "other" },
+  { id: "books", name: "Книги", type: "BOOK", category: "books" },
 ];
 
 export function WorksClient({ initialProducts }: { initialProducts: ProductView[] }) {
@@ -23,8 +27,25 @@ export function WorksClient({ initialProducts }: { initialProducts: ProductView[
       const matchesSearch =
         product.title.toLowerCase().includes(search.toLowerCase()) ||
         product.subtitle.toLowerCase().includes(search.toLowerCase());
-      const matchesCategory = category === "all" || product.category === category;
-      return matchesSearch && matchesCategory;
+      
+      const selectedCat = CATEGORIES.find(c => c.id === category);
+      let matchesType = true;
+      let matchesCategory = true;
+      
+      if (selectedCat?.type) {
+        matchesType = product.type === selectedCat.type;
+      }
+      
+      if (selectedCat?.category) {
+        matchesCategory = product.category === selectedCat.category;
+      }
+      
+      if (category === "all") {
+        matchesType = true;
+        matchesCategory = true;
+      }
+      
+      return matchesSearch && matchesType && matchesCategory;
     });
   }, [initialProducts, search, category]);
 

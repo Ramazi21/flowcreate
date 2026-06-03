@@ -13,7 +13,6 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user) return Response.json({ error: "Unauthorized" }, { status: 401 });
-  if (session.user.role !== "ADMIN") return Response.json({ error: "Forbidden" }, { status: 403 });
 
   let formData: FormData;
   try {

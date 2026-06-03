@@ -3,18 +3,11 @@ import { ProductStatus } from "@prisma/client";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 
-const imageUrlSchema = z
-  .string()
-  .min(2)
-  .refine((value) => value.startsWith("/uploads/") || z.string().url().safeParse(value).success, {
-    message: "Image URL must be absolute URL or /uploads path",
-  });
-
 const createProductSchema = z.object({
   title: z.string().min(2),
   slug: z.string().min(2),
   price: z.coerce.number().int().nonnegative(),
-  imageUrl: imageUrlSchema,
+  imageUrl: z.string().min(2),
   description: z.string().min(2),
   stock: z.coerce.number().int().nonnegative(),
   category: z.string().min(2),
@@ -40,6 +33,7 @@ export async function GET() {
 
   const products = await db.product.findMany({
     where,
+    include: { author: true },
     orderBy: { createdAt: "desc" },
   });
   return Response.json(products);
@@ -50,10 +44,6 @@ export async function POST(request: Request) {
 
   if (!session?.user) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  if (session.user.role !== "ADMIN") {
-    return Response.json({ error: "Forbidden" }, { status: 403 });
   }
 
   const body = await request.json();
@@ -70,11 +60,14 @@ export async function POST(request: Request) {
     return Response.json({ error: "Slug already exists" }, { status: 409 });
   }
 
+  const isAdmin = session.user.role === "ADMIN";
+
   const product = await db.product.create({
     data: {
       ...parsed.data,
       slug,
-      status: parsed.data.status ?? ProductStatus.PENDING,
+      authorId: session.user.id,
+      status: isAdmin ? (parsed.data.status ?? ProductStatus.APPROVED) : ProductStatus.PENDING,
     },
   });
 

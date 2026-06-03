@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
+import { AddWorkForm } from "./add-work-form";
+import { MyWorks } from "./my-works";
 
 const roleLabel: Record<string, string> = {
   USER: "Покупатель",
@@ -50,6 +52,14 @@ export default async function AccountPage() {
             </div>
           </dl>
         </div>
+      </section>
+
+      <section className="mt-8">
+        <AddWorkForm />
+      </section>
+
+      <section className="mt-8">
+        <MyWorks />
       </section>
 
       <section className="mt-8 border border-black/10 bg-white p-6 shadow-soft">
