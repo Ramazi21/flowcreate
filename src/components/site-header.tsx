@@ -69,7 +69,7 @@ export async function SiteHeader() {
           
           <CartLink />
           
-          <div className="hidden sm:block">
+          <div>
             {session?.user ? (
               <form
                 action={async () => {
