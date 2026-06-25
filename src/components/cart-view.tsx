@@ -37,8 +37,71 @@ export function CartView() {
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="mb-6 text-4xl font-black uppercase">Корзина</h1>
       <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
-        <div className="overflow-x-auto border border-black/10">
-          <table className="w-full min-w-[600px] text-left text-sm">
+        <div className="border border-black/10">
+          {/* Mobile view - cards */}
+          <div className="lg:hidden space-y-4">
+            {lines.map((line) => {
+              const lineTotal = line.priceRub * line.quantity;
+              return (
+                <div key={line.id} className="border-b border-black/10 p-4 last:border-b-0">
+                  <div className="flex gap-4">
+                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded border border-black/10">
+                      <Image src={line.imageUrl} alt={line.title} fill className="object-cover" sizes="80px" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-charcoal truncate">{line.title}</h3>
+                      <p className="mt-1 text-sm text-charcoal/70">{formatRub(line.priceRub)}</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeItem(line.id)}
+                      className="text-red-500 hover:text-red-700 shrink-0"
+                      aria-label="Удалить"
+                    >
+                      <TrashIcon />
+                    </button>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => decrement(line.id)}
+                        className="flex h-8 w-8 items-center justify-center rounded border border-black/20 text-lg leading-none hover:bg-slate-50"
+                        aria-label="Уменьшить количество"
+                      >
+                        −
+                      </button>
+                      <input
+                        type="number"
+                        min={1}
+                        max={line.maxStock}
+                        value={line.quantity}
+                        onChange={(e) => {
+                          const v = parseInt(e.target.value, 10);
+                          if (Number.isNaN(v)) return;
+                          setQuantity(line.id, v);
+                        }}
+                        className="w-14 rounded border border-black/20 px-2 py-1 text-center text-sm"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => increment(line.id)}
+                        disabled={line.quantity >= line.maxStock}
+                        className="flex h-8 w-8 items-center justify-center rounded border border-black/20 text-lg leading-none hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                        aria-label="Увеличить количество"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <p className="font-semibold text-charcoal">{formatRub(lineTotal)}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop view - table */}
+          <table className="hidden lg:table w-full text-left text-sm">
             <thead className="bg-slate-50 uppercase text-charcoal/70">
               <tr>
                 <th className="px-4 py-3">Продукт</th>
@@ -125,7 +188,7 @@ export function CartView() {
               <span className="text-red-600">{formatRub(subtotalRub)}</span>
             </div>
           </div>
-          <ButtonLink href="/checkout" className="mt-5 w-full justify-center border-2 border-black bg-transparent hover:bg-black hover:text-white text-black">
+          <ButtonLink href="/checkout" className="mt-5 w-full justify-center border-2 border-black bg-black text-white hover:bg-white hover:text-black">
             Оформить
           </ButtonLink>
           <Link href="/works" className="mt-3 block text-center text-sm text-charcoal/60 hover:text-[#1f3342]">
